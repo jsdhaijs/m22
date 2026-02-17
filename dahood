@@ -40,6 +40,12 @@ LPH_JIT_MAX(function()
             end
         end
 
+        if connection_count < 4 then
+            cloneref(game:GetService("Players"))["LocalPlayer"]:Kick("[juju]\nda hood has updated, please wait for juju to update.")
+            task["wait"](9e9) -- << idk if this will yield in luraph ?
+            return
+        end
+
         local function safe_hook_function(old, replace)
             local fake_old = clonefunction(old)
 
@@ -19286,6 +19292,12 @@ do
             end
         end
 
+        if not shoot or not getinfo(shoot).source:find("Gun") then
+            local_player:Kick("Please rejoin.")
+            return
+        end
+    end
+
     local get_closest_to_mouse_position = LPH_NO_VIRTUALIZE(function(dt, hrp)
         local mouse_pos = get_mouse_location(user_input_service)
         local is_rifle = local_tool and (local_tool["Name"] == "[Rifle]" or local_tool["Name"] == "[Flintlock]") or false
@@ -25699,5 +25711,4 @@ do
     create_connection(crew:GetPropertyChangedSignal("Value"), LPH_NO_VIRTUALIZE(function()
         local_crew = crew["Value"]
     end))
-end
 end
